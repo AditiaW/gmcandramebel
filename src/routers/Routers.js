@@ -10,6 +10,7 @@ import AddProducts from "../admin/AddProducts";
 import AllProducts from "../admin/AllProducts";
 import Dashboard from "../admin/Dashboard";
 import User from "../admin/User";
+import Orders from "../admin/Orders";
 
 const Routers = () => {
   return (
@@ -23,6 +24,7 @@ const Routers = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="dashboard/all-products" element={<AllProducts />} />
         <Route path="dashboard/add-products" element={<AddProducts />} />
+        <Route path="dashboard/orders" element={<Orders />} />
         <Route path="dashboard/users" element={<User />} />
       </Route>
       <Route path="/login" element={<Login />} />
