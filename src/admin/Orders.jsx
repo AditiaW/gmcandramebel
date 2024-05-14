@@ -71,7 +71,7 @@ const Orders = () => {
                         {order.cartItems.map((item, index) => (
                           <li key={index}>
                             <span>{item.productName}</span> -
-                            <span> Price: {item.price}</span> -
+                            <span> Price: {formatToRupiah(item.price)}</span> -
                             <span> Quantity: {item.quantity}</span>
                           </li>
                         ))}
