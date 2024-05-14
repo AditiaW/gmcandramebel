@@ -1,15 +1,76 @@
-.auth_form{
-    background: var(--primary-color);
-    padding: 40px;
-    border-radius: 5px  ;
+.auth_form {
+  background: var(--primary-color);
+  padding: 40px;
+  border-radius: 5px;
 }
-.auth_form p{
-    margin-top: 30px;
+
+.auth_form p {
+  margin-top: 30px;
 }
-.auth_form p a{
-    color: rgba(255, 255, 255, .735);
+
+.auth_form p a {
+  color: rgba(255, 255, 255, 0.735);
 }
-.auth_form input[type = 'file']{
-    color: #fff;
-    cursor: pointer;
+
+.auth_form input[type="file"] {
+  color: #fff;
+  cursor: pointer;
+}
+
+.form_group {
+  margin-bottom: 20px;
+}
+
+.form_group input[type="text"],
+.form_group input[type="email"],
+.form_group input[type="password"],
+.form_group textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+  color: #fff;
+}
+
+.form_group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.form_group span {
+  display: block;
+  margin-top: 5px;
+  color: coral;
+  font-size: 0.8em;
+}
+
+.form_group input[type="file"] {
+  display: none;
+}
+
+.form_group .file_label {
+  display: block;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.form_group .file_input {
+  display: none;
+}
+
+.form_group .file_input + .file_label::before {
+  content: "Choose File";
+}
+
+.form_group .file_input:focus + .file_label,
+.form_group .file_input.has-focus + .file_label {
+  outline: 1px dotted #000;
+}
+
+.form_group .file_input.has-files + .file_label::before {
+  content: attr(data-file-name);
 }

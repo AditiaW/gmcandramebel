@@ -7,17 +7,17 @@ import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const AddProducts = () => {
-  const [enterTitle, setenterTitle] = useState("");
-  const [enterDescription, setenterDescription] = useState("");
-  const [enterPrice, setenterPrice] = useState("");
-  const [enterCategory, setenterCategory] = useState("");
-  const [enterProductImage, setenterProductImage] = useState(null);
-  const [loading, setloading] = useState(false);
+  const [enterTitle, setEnterTitle] = useState("");
+  const [enterDescription, setEnterDescription] = useState("");
+  const [enterPrice, setEnterPrice] = useState("");
+  const [enterCategory, setEnterCategory] = useState("");
+  const [enterProductImage, setEnterProductImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const addProduct = async (e) => {
     e.preventDefault();
-    setloading(true);
+    setLoading(true);
 
     try {
       const docRef = await collection(db, "products");
@@ -29,11 +29,9 @@ const AddProducts = () => {
 
       uploadTask.on(
         "state_changed",
-        () => {
-          // You can add progress handling here if needed
-        },
+        () => {},
         (error) => {
-          setloading(false);
+          setLoading(false);
           toast.error("Image upload failed!");
           console.error("Error uploading image:", error);
         },
@@ -48,22 +46,27 @@ const AddProducts = () => {
                 imgUrl: downloadURL,
               });
 
-              setloading(false);
+              setLoading(false);
               toast.success("Product successfully added!");
               navigate("/dashboard/all-products");
             })
             .catch((downloadError) => {
-              setloading(false);
+              setLoading(false);
               toast.error("Product not added!");
               console.error("Error adding product:", downloadError);
             });
         }
       );
     } catch (error) {
-      setloading(false);
+      setLoading(false);
       toast.error("Product not added!");
       console.error("Error adding product:", error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setEnterProductImage(file);
   };
 
   return (
@@ -83,7 +86,7 @@ const AddProducts = () => {
                       type="text"
                       placeholder="Double sofa"
                       value={enterTitle}
-                      onChange={(e) => setenterTitle(e.target.value)}
+                      onChange={(e) => setEnterTitle(e.target.value)}
                       required
                     />
                   </FormGroup>
@@ -93,7 +96,7 @@ const AddProducts = () => {
                       type="text"
                       placeholder="Description....."
                       value={enterDescription}
-                      onChange={(e) => setenterDescription(e.target.value)}
+                      onChange={(e) => setEnterDescription(e.target.value)}
                       required
                     />
                   </FormGroup>
@@ -104,16 +107,16 @@ const AddProducts = () => {
                         type="text"
                         placeholder="1000000"
                         value={enterPrice}
-                        onChange={(e) => setenterPrice(e.target.value)}
+                        onChange={(e) => setEnterPrice(e.target.value)}
                         required
                       />
                     </FormGroup>
                     <FormGroup className="form_group w-50">
-                      <span>Caregory</span>
+                      <span>Category</span>
                       <select
                         className="w-100 p-2"
                         value={enterCategory}
-                        onChange={(e) => setenterCategory(e.target.value)}
+                        onChange={(e) => setEnterCategory(e.target.value)}
                       >
                         <option value="">Select Category</option>
                         <option value="meja">Meja</option>
@@ -127,13 +130,19 @@ const AddProducts = () => {
                   <div>
                     <FormGroup className="form_group">
                       <span>Product Image</span>
-                      <input
-                        type="file"
-                        onChange={(e) => {
-                          setenterProductImage(e.target.files[0]);
-                        }}
-                        required
-                      />
+                      <label htmlFor="productImage" className="file_label">
+                        Choose File
+                        <input
+                          type="file"
+                          id="productImage"
+                          onChange={handleFileChange}
+                          required
+                          style={{ display: "none" }}
+                        />
+                      </label>
+                      {enterProductImage && (
+                        <span>{enterProductImage.name}</span>
+                      )}
                     </FormGroup>
                   </div>
                   <button className="buy_btn" type="submit">

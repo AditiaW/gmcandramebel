@@ -10,13 +10,14 @@ import Helmet from "../components/Helmet/Helmet"
  import { storage } from '../firebase.config'
  import { db } from '../firebase.config'
  import { toast } from 'react-toastify'
+ 
  import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
   const [Username , setUsername]=useState("");
   const [email , setEmail]=useState("");
   const [password , setPassword]=useState("");
-  const [file , setfile]=useState(null)
+  const [file]=useState(null)
   const [loading , setloading]=useState(false)
   const navigate=useNavigate()
   const defaultPhotoURL = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'; // Ganti dengan URL foto default yang ingin Anda gunakan
