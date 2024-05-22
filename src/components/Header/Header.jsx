@@ -57,7 +57,6 @@ const Header = () => {
         toast.error(err.message);
       });
   };
-  const menuToggle = () => {};
   const navigate = useNavigate();
   const navigateToCart = () => {
     navigate("/cart");
@@ -72,13 +71,13 @@ const Header = () => {
         <Row>
           <div className="nav_wrapper">
             <div className="logo">
-              <img src={logo} alt="logo" />
-              <div>
-                <h1>GM Candra Mebel</h1>
-              </div>
+                <img src={logo} alt="logo" />
+                <div>
+                  <h1>GM Candra Mebel</h1>
+                </div>
             </div>
 
-            <div className="navigation" ref={menuRef} onClick={menuToggle}>
+            <div className="navigation" ref={menuRef}y>
               <ul className="menu">
                 {nav_links.map((item, index) => (
                   <li className="nav_item" key={index}>
@@ -129,11 +128,6 @@ const Header = () => {
                     </div>
                   )}
                 </div>
-              </div>
-              <div className="mobile_menu">
-                <span onClick={menuToggle}>
-                  <i class="ri-menu-line"></i>
-                </span>
               </div>
             </div>
           </div>
