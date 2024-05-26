@@ -71,13 +71,16 @@ const Header = () => {
         <Row>
           <div className="nav_wrapper">
             <div className="logo">
-                <img src={logo} alt="logo" />
-                <div>
+              <img src={logo} alt="logo" />
+              <div>
+                <Link to={"/home"}>
+                  {" "}
                   <h1>GM Candra Mebel</h1>
-                </div>
+                </Link>
+              </div>
             </div>
 
-            <div className="navigation" ref={menuRef}y>
+            <div className="navigation" ref={menuRef} y>
               <ul className="menu">
                 {nav_links.map((item, index) => (
                   <li className="nav_item" key={index}>
@@ -113,6 +116,9 @@ const Header = () => {
                 >
                   {currentUser ? (
                     <div className="d-flex align-items-center justify-content-center flex-column">
+                      <Link to={"/home"}>Home</Link>
+                      <Link to={"/shop"}>Shop</Link>
+                      <Link to={"/cart"}>Cart</Link>
                       <Link to={"/dashboard"}>Dashboard</Link>
                       <span
                         onClick={logout}
@@ -123,6 +129,9 @@ const Header = () => {
                     </div>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
+                      <Link to={"/home"}>Home</Link>
+                      <Link to={"/shop"}>Shop</Link>
+                      <Link to={"/cart"}>Cart</Link>
                       <Link to={"/signup"}>Signup</Link>
                       <Link to={"/login"}>Login</Link>
                     </div>

@@ -3,7 +3,7 @@ import { Form, FormGroup, Container, Row, Col } from "reactstrap";
 import { toast } from "react-toastify";
 import { db, storage } from "../firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const AddProducts = () => {
@@ -20,11 +20,7 @@ const AddProducts = () => {
     setLoading(true);
 
     try {
-      const docRef = await collection(db, "products");
-      const storageRef = ref(
-        storage,
-        `productImages/${enterProductImage.name}`
-      );
+      const storageRef = ref(storage, `productImages/${enterProductImage.name}`);
       const uploadTask = uploadBytesResumable(storageRef, enterProductImage);
 
       uploadTask.on(
@@ -38,12 +34,16 @@ const AddProducts = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref)
             .then(async (downloadURL) => {
-              await addDoc(docRef, {
+              const docRef = await addDoc(collection(db, "products"), {
                 productName: enterTitle,
                 description: enterDescription,
                 category: enterCategory,
-                price: enterPrice,
+                price: Number(enterPrice), 
                 imgUrl: downloadURL,
+              });
+
+              await updateDoc(doc(db, "products", docRef.id), {
+                id: docRef.id,
               });
 
               setLoading(false);
@@ -88,6 +88,7 @@ const AddProducts = () => {
                       value={enterTitle}
                       onChange={(e) => setEnterTitle(e.target.value)}
                       required
+                      style={{ color: "black" }}
                     />
                   </FormGroup>
                   <FormGroup className="form_group">
@@ -98,6 +99,7 @@ const AddProducts = () => {
                       value={enterDescription}
                       onChange={(e) => setEnterDescription(e.target.value)}
                       required
+                      style={{ color: "black" }}
                     />
                   </FormGroup>
                   <div className="d-flex align-items-center justify-content-between gap-5">
@@ -109,6 +111,7 @@ const AddProducts = () => {
                         value={enterPrice}
                         onChange={(e) => setEnterPrice(e.target.value)}
                         required
+                        style={{ color: "black" }}
                       />
                     </FormGroup>
                     <FormGroup className="form_group w-50">
@@ -117,6 +120,7 @@ const AddProducts = () => {
                         className="w-100 p-2"
                         value={enterCategory}
                         onChange={(e) => setEnterCategory(e.target.value)}
+                        style={{ color: "black" }}
                       >
                         <option value="">Select Category</option>
                         <option value="meja">Meja</option>

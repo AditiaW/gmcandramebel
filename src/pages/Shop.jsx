@@ -9,7 +9,9 @@ import useGetData from "../custom-hooks/useGetData";
 const Shop = () => {
   const { data: products, loading } = useGetData("products");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [, setSortType] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortType, setSortType] = useState("");
 
   useEffect(() => {
     if (products && products.length > 0) {
@@ -17,32 +19,43 @@ const Shop = () => {
     }
   }, [products]);
 
+  useEffect(() => {
+    let updatedProducts = products;
+
+    if (selectedCategory) {
+      updatedProducts = updatedProducts.filter((item) =>
+        item.category.includes(selectedCategory)
+      );
+    }
+
+    if (searchTerm) {
+      updatedProducts = updatedProducts.filter((item) =>
+        item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (sortType === "ascending") {
+      updatedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortType === "descending") {
+      updatedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    setFilteredProducts(updatedProducts);
+  }, [products, searchTerm, selectedCategory, sortType]);
+
   const handleFilter = (e) => {
     const filterValue = e.target.value;
-    const filtered = products.filter((item) =>
-      item.category.includes(filterValue)
-    );
-    setFilteredProducts(filtered);
+    setSelectedCategory(filterValue);
   };
 
   const handleSearch = (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const searched = products.filter((item) =>
-      item.productName.toLowerCase().includes(searchTerm)
-    );
-    setFilteredProducts(searched);
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
   };
 
   const handleSort = (e) => {
     const sortValue = e.target.value;
     setSortType(sortValue);
-    let sortedProducts = [...filteredProducts];
-    if (sortValue === "ascending") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (sortValue === "descending") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    }
-    setFilteredProducts(sortedProducts);
   };
 
   return (
@@ -54,7 +67,7 @@ const Shop = () => {
             <Col lg="3" md="6">
               <div className="filter_widget">
                 <select onChange={handleFilter}>
-                  <option>Filter By Category</option>
+                  <option value="">Filter By Category</option>
                   <option value="meja">Meja</option>
                   <option value="kursi">Kursi</option>
                   <option value="pintu">Pintu</option>
@@ -77,6 +90,7 @@ const Shop = () => {
                   type="text"
                   placeholder="Search......"
                   onChange={handleSearch}
+                  value={searchTerm}
                 />
                 <span>
                   <i className="ri-search-line"></i>

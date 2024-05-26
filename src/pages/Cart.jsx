@@ -35,14 +35,14 @@ const Cart = () => {
         noOrder: numberOfOrders + 1,
         cartItems: cartItems.map((item) => ({
           productName: item.productName,
-          price: item.price,
           quantity: item.quantity,
+          price: item.price,
         })),
         totalPrice: totalAmount,
         createdAt: new Date(),
       });
-      toast.success("Order placed successfully!");
 
+      toast.success("Order placed successfully!");
       dispatch(cartActions.clearCart());
     } catch (error) {
       console.error("Error placing order: ", error);
@@ -88,7 +88,7 @@ const Cart = () => {
             <Col lg="3">
               <div>
                 <h6 className="d-flex align-items-center justify-content-between">
-                  Subtotal
+                  Subtotal 
                   <span className="fs-4 fw-bold">
                     {formatToRupiah(totalAmount)}
                   </span>

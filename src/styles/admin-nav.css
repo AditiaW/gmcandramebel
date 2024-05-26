@@ -1,64 +1,78 @@
-.admin_header{
+.admin_header {
     width: 100%;
     background: var(--primary-color);
     padding: 20px 0px;
 }
-.admin_nav-top{
+
+.admin_nav-top {
     width: 100%;
 }
-.admin_nav-wrapper-top{
+
+.admin_nav-wrapper-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     column-gap: 3rem;
 }
-.admin_nav-top-right img{
+
+.admin_nav-top-right img {
     width: 40px;
     height: 40px;
     border-radius: 50px;
     cursor: pointer;
-} 
-.admin_nav-top-right{
+}
+
+.admin_nav-top-right {
     display: flex;
     align-items: center;
     column-gap: 2rem;
 }
 
-.admin_nav-wrapper-top .search_box{
- display: flex;
- align-items: center;
- justify-content: center;
+.admin_nav-wrapper-top .search_box {
+    display: none;
 }
-.admin_nav-top-right span i{
-     color: whitesmoke;
-     cursor: pointer;
+
+.admin_nav-top-right span i {
+    color: whitesmoke;
+    cursor: pointer;
 }
-.admin_nav-wrapper-top .logo h2{
+
+.admin_nav-wrapper-top .logo h2 {
     font-size: 1.2rem;
     color: whitesmoke;
 }
 
-.admin_menu{
+.admin_menu {
     width: 100%;
     height: 70px;
     line-height: 70px;
-    background: var(--card-bg-02);
+    background: var(--primary-color); /* Use primary color */
 }
-.admin_navigation{
+
+.admin_navigation {
     text-align: center;
 }
-.admin_menu-list{
+
+.admin_menu-list {
     display: flex;
     align-items: center;
     column-gap: 2.7rem;
     justify-content: center;
 }
-.admin_menu-list .admin_menu-item a{
-    color: var(--primary-color);
+
+.admin_menu-list .admin_menu-item a {
+    color: #fff; /* White text color */
     font-weight: 500;
     padding: 10px 15px;
     border-radius: 5px;
+    transition: background-color 0.3s ease; /* Added transition for smooth color change */
 }
-.active_admin-menu{
-    background: whitesmoke;
+
+.admin_menu-list .admin_menu-item a:hover {
+    background-color: #005200; /* Darker shade on hover */
 }
+
+.active_admin-menu {
+    background: #005200; /* Darker shade for active menu item */
+}
+
