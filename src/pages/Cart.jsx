@@ -34,6 +34,7 @@ const Cart = () => {
       await addDoc(ordersCollection, {
         noOrder: numberOfOrders + 1,
         cartItems: cartItems.map((item) => ({
+          id: item.id,
           productName: item.productName,
           quantity: item.quantity,
           price: item.price,
