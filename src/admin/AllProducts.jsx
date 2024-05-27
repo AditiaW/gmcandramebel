@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 import useGetData from "../custom-hooks/useGetData";
 import { db } from "../firebase.config";
 import { doc, deleteDoc } from "firebase/firestore";
@@ -7,6 +8,8 @@ import { toast } from "react-toastify";
 
 const AllProducts = () => {
   const { data: productsData, loading } = useGetData("products");
+  const navigate = useNavigate();
+
   const deleteProduct = async (id) => {
     try {
       // Delete product from Firestore collection
@@ -25,7 +28,6 @@ const AllProducts = () => {
     }).format(value);
   };
 
-  console.log(productsData);
   return (
     <section>
       <Container>
@@ -56,11 +58,15 @@ const AllProducts = () => {
                       <td>
                         <button
                           className="btn btn-danger"
-                          onClick={() => {
-                            deleteProduct(item.id);
-                          }}
+                          onClick={() => deleteProduct(item.id)}
                         >
                           Delete
+                        </button>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => navigate(`/dashboard/edit-product/${item.id}`, { state: { product: item } })}
+                        >
+                          Edit
                         </button>
                       </td>
                     </tr>
