@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "remixicon/fonts/remixicon.css";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,9 +22,8 @@ root.render(
           closeOnClick
           pauseOnHover={false}
         />
-        <SpeedInsights>
-          <App />
-        </SpeedInsights>
+        <SpeedInsights />
+        <App />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
